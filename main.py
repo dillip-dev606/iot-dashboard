@@ -7,7 +7,7 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 # SUPABASE SESSION POOLER URI
-DATABASE_URL = "postgresql://postgres.udsqqzlijvkypxbbepxf:[YOUR-PASSWORD]@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres"
+DATABASE_URL = "postgresql://postgres.udsqqzlijvkypxbbepxf:Dillip%402004%40@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres"
 
 # Database connection
 conn = psycopg2.connect(DATABASE_URL)
