@@ -67,7 +67,6 @@ def history():
 
     return data
 
-
 @app.get("/dashboard")
 def dashboard(request: Request):
 
