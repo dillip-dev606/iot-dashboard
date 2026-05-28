@@ -72,7 +72,5 @@ def dashboard(request: Request):
 
     return templates.TemplateResponse(
         "dashboard.html",
-        {
-            "request": request
-        }
+        {"request": request}
     )
