@@ -6,10 +6,10 @@ app = FastAPI()
 
 templates = Jinja2Templates(directory="templates")
 
-# SUPABASE SESSION POOLER URI
+# Supabase Session Pooler URI
 DATABASE_URL = "postgresql://postgres.udsqqzlijvkypxbbepxf:Dillip%402004%40@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres"
 
-# Database connection
+# Connect DB
 conn = psycopg2.connect(DATABASE_URL)
 cursor = conn.cursor()
 
@@ -34,11 +34,6 @@ def latest():
     )
 
     row = cursor.fetchone()
-
-    if row is None:
-        return {
-            "message": "No sensor data found"
-        }
 
     return {
         "temperature": row[0],
