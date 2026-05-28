@@ -6,21 +6,20 @@ app = FastAPI()
 
 templates = Jinja2Templates(directory="templates")
 
-conn = psycopg2.connect(
-    host="db.udsqqzlijvkypxbbepxf.supabase.co",
-    port="5432",
-    database="postgres",
-    user="postgres",
-    password="Dillip@2004@"
-)
+# SUPABASE SESSION POOLER URI
+DATABASE_URL = "postgresql://postgres.udsqqzlijvkypxbbepxf:[YOUR-PASSWORD]@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres"
 
+# Database connection
+conn = psycopg2.connect(DATABASE_URL)
 cursor = conn.cursor()
+
 
 @app.get("/")
 def home():
     return {
         "message": "IoT Dashboard API Running"
     }
+
 
 @app.get("/latest")
 def latest():
@@ -36,11 +35,18 @@ def latest():
 
     row = cursor.fetchone()
 
+    if row is None:
+        return {
+            "message": "No sensor data found"
+        }
+
     return {
         "temperature": row[0],
         "humidity": row[1],
         "created_at": str(row[2])
     }
+
+
 @app.get("/history")
 def history():
 
@@ -65,11 +71,14 @@ def history():
         })
 
     return data
+
+
 @app.get("/dashboard")
 def dashboard(request: Request):
 
     return templates.TemplateResponse(
-        request=request,
-        name="dashboard.html",
-        context={}
+        "dashboard.html",
+        {
+            "request": request
+        }
     )
